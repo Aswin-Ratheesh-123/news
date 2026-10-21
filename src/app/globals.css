@@ -1,0 +1,171 @@
+@import "tailwindcss";
+
+:root {
+  --background: #080B11;
+  --foreground: #F5F7FA;
+  --bg-primary: #080B11;
+  --bg-secondary: #0E131C;
+  --bg-sidebar: #0A0E15;
+  --bg-card: #121925;
+  --bg-hover: #1B2432;
+  --text-primary: #F5F7FA;
+  --text-secondary: #A4ADBB;
+  --text-muted: #707B8B;
+  --border-color: #252D39;
+  --accent-red: #E50914;
+  --accent-blue: #075DEB;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-newsight-bg: #080B11;
+  --color-newsight-secondary: #0E131C;
+  --color-newsight-sidebar: #0A0E15;
+  --color-newsight-card: #121925;
+  --color-newsight-hover: #1B2432;
+  --color-newsight-text: #F5F7FA;
+  --color-newsight-secondary-text: #A4ADBB;
+  --color-newsight-muted: #707B8B;
+  --color-newsight-border: #252D39;
+  --color-newsight-red: #E50914;
+  --color-newsight-blue: #075DEB;
+  --font-serif: var(--font-serif), Georgia, Cambria, 'Times New Roman', Times, serif;
+  --font-sans: var(--font-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: #080B11;
+  color: #F5F7FA;
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #080B11;
+}
+::-webkit-scrollbar-thumb {
+  background: #252D39;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #364152;
+}
+
+/* Editorial Typography */
+.font-headline {
+  letter-spacing: -0.015em;
+}
+
+.headline-lead {
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.headline-card {
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+
+.editorial-kicker {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Video line-clamp utilities */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Dark Article Prose Typography */
+.article-prose {
+  font-family: var(--font-sans);
+  font-size: 1.125rem;
+  line-height: 1.85;
+  color: #D6DCE5;
+}
+
+.article-prose h2 {
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  color: #F5F7FA;
+  letter-spacing: -0.015em;
+}
+
+.article-prose h3 {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  color: #F5F7FA;
+}
+
+.article-prose p {
+  margin-bottom: 1.4rem;
+}
+
+.article-prose blockquote {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-style: italic;
+  line-height: 1.6;
+  border-left: 3px solid #E50914;
+  background-color: #121925;
+  padding: 1rem 1.5rem;
+  margin: 2rem 0;
+  color: #F5F7FA;
+  border-radius: 0 4px 4px 0;
+}
+
+.article-prose ul {
+  list-style-type: square;
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.article-prose ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.article-prose li {
+  margin-bottom: 0.5rem;
+}
+
+/* Reading Progress Bar */
+#reading-progress {
+  transition: width 100ms ease-out;
+}
