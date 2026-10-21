@@ -20,8 +20,8 @@ export default function NewsightLogo({ className = '', size = 'md' }: NewsightLo
       aria-label="NEWSIGHT Home"
     >
       <span className="flex items-center">
-        <span className={`text-white font-extrabold ${sizeClasses}`}>NEW</span>
-        <span className={`text-[#E50914] font-black ${sizeClasses}`}>SIGHT</span>
+        <span className={`text-[var(--text-primary)] font-extrabold transition-colors ${sizeClasses}`}>NEW</span>
+        <span className={`text-[var(--accent)] font-black transition-colors ${sizeClasses}`}>SIGHT</span>
       </span>
       {/* Editorial Live Dot / Camera Aperture Accent */}
       <span className="relative flex h-2 w-2">

@@ -44,7 +44,7 @@ export default async function PublicLayout({
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#080B11] text-[#F5F7FA]">
+    <div className="flex flex-col min-h-screen bg-[var(--background)] text-[var(--foreground)]">
       {/* 1. Sticky Top Header */}
       <NewsightHeader
         user={user}

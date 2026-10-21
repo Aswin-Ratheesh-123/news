@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { PlusCircle, ExternalLink, ShieldCheck } from 'lucide-react';
 import { UserRole } from '@/lib/types';
 
+import ThemeToggle from '@/components/public/ThemeToggle';
+
 interface AdminHeaderProps {
   title: string;
   subtitle?: string;
@@ -33,6 +35,7 @@ export default function AdminHeader({
 
       <div className="flex items-center gap-3">
         {actions}
+        <ThemeToggle />
         <Link
           href="/"
           target="_blank"

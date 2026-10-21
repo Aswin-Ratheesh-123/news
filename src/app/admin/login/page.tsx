@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Lock, Mail, ArrowRight, ShieldCheck, AlertCircle } from 'lucide-react';
 import NewsightLogo from '@/components/public/NewsightLogo';
+import ThemeToggle from '@/components/public/ThemeToggle';
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -50,7 +51,10 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#080B11] text-[#F5F7FA] flex flex-col justify-center items-center px-4 py-12 font-sans">
+    <div className="relative min-h-screen bg-[#080B11] text-[#F5F7FA] flex flex-col justify-center items-center px-4 py-12 font-sans">
+      <div className="absolute top-4 right-4 sm:top-6 sm:right-6">
+        <ThemeToggle />
+      </div>
       
       {/* Brand Header */}
       <div className="text-center mb-8 space-y-2">

@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import NewsightLogo from './NewsightLogo';
 import NewsightNavDrawer from './NewsightNavDrawer';
+import ThemeToggle from './ThemeToggle';
 
 interface SearchResultVideo {
   id: string;
@@ -427,6 +428,9 @@ export default function NewsightHeader({
             >
               <Search className="w-5 h-5" />
             </button>
+
+            {/* Theme Toggle Button */}
+            <ThemeToggle />
 
             {/* Live TV Button - visible on sm: screens and up; on small mobile, it is prominent in the bottom nav bar */}
             <Link

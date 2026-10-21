@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import { ThemeProvider } from '@/components/public/ThemeProvider';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -26,7 +27,10 @@ export const viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
-  themeColor: '#080B11',
+  themeColor: [
+    { media: '(prefers-color-scheme: dark)', color: '#080B11' },
+    { media: '(prefers-color-scheme: light)', color: '#FFFFFF' },
+  ],
 };
 
 export const dynamic = 'force-dynamic';
@@ -39,10 +43,36 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${inter.variable} antialiased dark`}
     >
-      <body className="min-h-screen bg-[#080B11] text-[#F5F7FA] font-sans selection:bg-[#E50914] selection:text-white flex flex-col">
-        {children}
+      <head>
+        {/* Anti-FOUC Early Theme Initializer */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var stored = localStorage.getItem('newsight_theme');
+                  var theme = stored;
+                  if (!theme) {
+                    theme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+                  }
+                  var root = document.documentElement;
+                  root.classList.remove('light', 'dark');
+                  root.classList.add(theme);
+                  root.setAttribute('data-theme', theme);
+                  root.style.colorScheme = theme;
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
+      <body className="min-h-screen bg-[var(--background)] text-[var(--foreground)] font-sans selection:bg-[#E50914] selection:text-white flex flex-col">
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

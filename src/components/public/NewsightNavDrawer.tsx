@@ -8,6 +8,7 @@ import {
   FileText, ShieldCheck, Mail, ExternalLink, ChevronRight, User
 } from 'lucide-react';
 import NewsightLogo from './NewsightLogo';
+import ThemeToggle from './ThemeToggle';
 
 interface NavDrawerProps {
   isOpen: boolean;
@@ -84,13 +85,16 @@ export default function NewsightNavDrawer({
         <div className="sticky top-0 z-20 flex items-center justify-between px-6 py-4 bg-[#0A0E15] border-b border-[#252D39]">
           <NewsightLogo size="md" />
           
-          <button
-            onClick={onClose}
-            className="p-2 text-[#A4ADBB] hover:text-white hover:bg-[#1B2432] rounded-md transition-colors"
-            aria-label="Close navigation drawer"
-          >
-            <X className="w-6 h-6" />
-          </button>
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <button
+              onClick={onClose}
+              className="p-2 text-[#A4ADBB] hover:text-white hover:bg-[#1B2432] rounded-md transition-colors"
+              aria-label="Close navigation drawer"
+            >
+              <X className="w-6 h-6" />
+            </button>
+          </div>
         </div>
 
         {/* Search Bar inside Drawer */}
@@ -228,6 +232,14 @@ export default function NewsightNavDrawer({
                 Terms of Service
               </Link>
             </div>
+          </div>
+
+          {/* Theme Mode Toggle for Mobile Visitors */}
+          <div>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-[#707B8B] mb-2">
+              Appearance & Theme
+            </h3>
+            <ThemeToggle variant="drawer" />
           </div>
 
           {/* Admin / Account Quick Access */}
