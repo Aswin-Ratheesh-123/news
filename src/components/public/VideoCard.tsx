@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Play, Clock, User } from 'lucide-react';
+import { ArrowUpRight, Clock, User } from 'lucide-react';
 import { VideoItem } from '@/lib/types';
 import { formatDate } from '@/lib/utils';
 
@@ -8,6 +8,15 @@ interface VideoCardProps {
   video: VideoItem;
   layout?: 'grid' | 'compact' | 'horizontal';
   showCategory?: boolean;
+}
+
+function formatReadingTime(duration?: string) {
+  if (!duration) return '5 MIN READ';
+  if (duration.includes(':')) {
+    const mins = parseInt(duration.split(':')[0], 10);
+    return `${Math.max(mins || 5, 2)} MIN READ`;
+  }
+  return duration;
 }
 
 export default function VideoCard({
@@ -29,11 +38,11 @@ export default function VideoCard({
           />
           <div className="absolute inset-0 bg-black/25 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
             <div className="w-8 h-8 rounded-full bg-[#E50914] text-white flex items-center justify-center shadow-lg">
-              <Play className="w-4 h-4 ml-0.5 fill-white" />
+              <ArrowUpRight className="w-4 h-4 text-white" />
             </div>
           </div>
           <span className="absolute bottom-1 right-1 px-1.5 py-0.5 bg-black/85 text-[10px] font-mono font-bold text-white rounded">
-            {video.duration}
+            {formatReadingTime(video.duration)}
           </span>
         </div>
 
@@ -77,16 +86,16 @@ export default function VideoCard({
           loading="lazy"
         />
 
-        {/* Hover Play Button Overlay */}
+        {/* Hover Read Indicator Overlay */}
         <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
           <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#E50914] text-white flex items-center justify-center shadow-xl">
-            <Play className="w-5 h-5 ml-0.5 fill-white" />
+            <ArrowUpRight className="w-5 h-5 text-white" />
           </div>
         </div>
 
-        {/* Duration Badge */}
-        <span className="absolute bottom-1.5 right-1.5 px-1.5 py-0.5 bg-black/85 text-[10.5px] font-mono font-bold text-white rounded tracking-tight">
-          {video.duration}
+        {/* Reading Time Badge */}
+        <span className="absolute bottom-1.5 right-1.5 px-1.5 py-0.5 bg-black/85 text-[10px] font-mono font-bold text-white rounded tracking-tight">
+          {formatReadingTime(video.duration)}
         </span>
 
         {/* Category Pill Badge */}
@@ -97,7 +106,7 @@ export default function VideoCard({
         )}
       </div>
 
-      {/* Video Headline and Details */}
+      {/* Story Headline and Details */}
       <div className="p-3 sm:p-3.5 flex flex-col flex-1 justify-between gap-2">
         <h4 className="text-xs sm:text-sm font-semibold text-[#F5F7FA] group-hover:text-white line-clamp-2 leading-snug">
           {video.title}

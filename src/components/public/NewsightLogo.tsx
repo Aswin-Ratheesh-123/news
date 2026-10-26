@@ -7,27 +7,23 @@ interface NewsightLogoProps {
 }
 
 export default function NewsightLogo({ className = '', size = 'md' }: NewsightLogoProps) {
-  const sizeClasses = {
-    sm: 'text-base sm:text-lg tracking-tight',
-    md: 'text-xl sm:text-2xl tracking-tighter',
-    lg: 'text-2xl sm:text-4xl tracking-tighter'
+  const heightClasses = {
+    sm: 'h-6 sm:h-7',
+    md: 'h-8 sm:h-9',
+    lg: 'h-10 sm:h-12'
   }[size];
 
   return (
     <Link 
       href="/" 
-      className={`inline-flex items-center gap-1.5 font-black uppercase select-none group ${className}`}
+      className={`inline-flex items-center select-none group shrink-0 ${className}`}
       aria-label="NEWSIGHT Home"
     >
-      <span className="flex items-center">
-        <span className={`text-[var(--text-primary)] font-extrabold transition-colors ${sizeClasses}`}>NEW</span>
-        <span className={`text-[var(--accent)] font-black transition-colors ${sizeClasses}`}>SIGHT</span>
-      </span>
-      {/* Editorial Live Dot / Camera Aperture Accent */}
-      <span className="relative flex h-2 w-2">
-        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E50914] opacity-75"></span>
-        <span className="relative inline-flex rounded-full h-2 w-2 bg-[#E50914]"></span>
-      </span>
+      <img
+        src="/logo.png"
+        alt="NEWSIGHT"
+        className={`${heightClasses} w-auto object-contain transition-transform duration-200 group-hover:scale-105`}
+      />
     </Link>
   );
 }

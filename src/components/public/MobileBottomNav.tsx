@@ -3,15 +3,14 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, Radio, PlaySquare, Film, LayoutGrid } from 'lucide-react';
+import { Home, PlaySquare, Film, LayoutGrid, BookOpen } from 'lucide-react';
 
 export default function MobileBottomNav() {
   const pathname = usePathname();
 
   const navItems = [
     { label: 'Home', href: '/', icon: Home, exact: true },
-    { label: 'Live TV', href: '/live', icon: Radio, isLive: true },
-    { label: 'Videos', href: '/video', icon: PlaySquare },
+    { label: 'Stories', href: '/video', icon: BookOpen },
     { label: 'Shows', href: '/shows', icon: Film },
     { label: 'Categories', href: '/categories', icon: LayoutGrid },
   ];
@@ -37,8 +36,6 @@ export default function MobileBottomNav() {
             className={`relative flex flex-col items-center py-1.5 px-3 rounded-xl text-[10px] font-semibold transition-all duration-200 active:scale-95 ${
               active 
                 ? 'text-[#075DEB]' 
-                : item.isLive 
-                ? 'text-[#E50914] hover:text-red-400' 
                 : 'text-[#A4ADBB] hover:text-white'
             }`}
           >
@@ -49,12 +46,6 @@ export default function MobileBottomNav() {
 
             <div className="relative">
               <Icon className={`w-5 h-5 mb-0.5 transition-colors ${active ? 'text-[#075DEB]' : ''}`} />
-              {item.isLive && (
-                <span className="absolute -top-0.5 -right-0.5 flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E50914] opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#E50914]"></span>
-                </span>
-              )}
             </div>
             <span className={`tracking-tight ${active ? 'font-bold text-white' : ''}`}>
               {item.label}

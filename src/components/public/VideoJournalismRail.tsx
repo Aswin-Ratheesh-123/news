@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Play, Clock, ArrowRight, Video, CheckCircle2 } from 'lucide-react';
 import { VideoItem } from '@/lib/types';
 import { formatDate } from '@/lib/utils';
+import VideoPlayer from '@/components/public/VideoPlayer';
 
 interface VideoJournalismRailProps {
   videos: VideoItem[];
@@ -44,38 +45,12 @@ export default function VideoJournalismRail({ videos }: VideoJournalismRailProps
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Main Video Player (8 cols) */}
           <div className="lg:col-span-8">
-            <div className="relative aspect-video w-full bg-black border border-zinc-800 overflow-hidden shadow-2xl">
-              {isPlaying ? (
-                <video
-                  src={activeVideo.video_url}
-                  controls
-                  autoPlay
-                  className="w-full h-full object-cover"
-                >
-                  Your browser does not support HTML5 video streaming.
-                </video>
-              ) : (
-                <div
-                  className="relative w-full h-full cursor-pointer group"
-                  onClick={() => setIsPlaying(true)}
-                >
-                  <img
-                    src={activeVideo.thumbnail_url}
-                    alt={activeVideo.title}
-                    className="w-full h-full object-cover opacity-85 group-hover:opacity-100 transition duration-300"
-                  />
-                  {/* Play Button Overlay */}
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/40 group-hover:bg-black/20 transition">
-                    <div className="w-16 h-16 rounded-full bg-red-600 text-white flex items-center justify-center pl-1 shadow-lg group-hover:scale-110 group-hover:bg-red-500 transition-all">
-                      <Play className="w-8 h-8 fill-current" />
-                    </div>
-                  </div>
-                  {/* Duration Badge */}
-                  <span className="absolute bottom-3 right-3 bg-black/80 text-white font-mono text-xs px-2 py-0.5 rounded">
-                    {activeVideo.duration}
-                  </span>
-                </div>
-              )}
+            <div className="overflow-hidden shadow-2xl">
+              <VideoPlayer
+                src={activeVideo.video_url}
+                poster={activeVideo.thumbnail_url}
+                title={activeVideo.title}
+              />
             </div>
 
             {/* Video Details */}

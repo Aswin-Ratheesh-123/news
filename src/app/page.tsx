@@ -1,8 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
 import { 
-  Play, Radio, ChevronRight, TrendingUp, Sparkles, Film, 
-  Clock, ArrowUpRight, Award, Compass, Eye, Newspaper, Flame, PlaySquare
+  Play, ChevronRight, TrendingUp, Sparkles, Film, 
+  Clock, ArrowUpRight, Award, Compass, Eye, Newspaper, Flame, PlaySquare, BookOpen
 } from 'lucide-react';
 import PublicLayout from '@/components/public/PublicLayout';
 import VideoPlayer from '@/components/public/VideoPlayer';
@@ -15,10 +15,19 @@ import { formatDate } from '@/lib/utils';
 
 export const dynamic = 'force-dynamic';
 
+function formatReadingTime(duration?: string) {
+  if (!duration) return '5 min read';
+  if (duration.includes(':')) {
+    const mins = parseInt(duration.split(':')[0], 10);
+    return `${Math.max(mins || 5, 2)} min read`;
+  }
+  return duration;
+}
+
 export default async function HomePage() {
   const allVideos = getVideos(12);
   const featured = allVideos.find(v => v.is_featured === 1) || allVideos[0];
-  const sideRailVideos = allVideos.filter(v => v.id !== featured?.id).slice(0, 3);
+  const sideRailVideos = allVideos.filter(v => v.id !== featured?.id).slice(0, 4);
   const latestVideos = getVideos(8);
   const justAdded = getJustAddedVideos(4);
   const editorPicks = getFeaturedVideos(4);
@@ -38,21 +47,21 @@ export default async function HomePage() {
       <div className="px-3 sm:px-5 lg:px-6 py-4 sm:py-6 space-y-10 sm:space-y-12">
         
         {/* ==================================================
-            SECTION A: FEATURED VIDEO & B: LATEST VIDEOS RAIL
+            SECTION A: FEATURED STORY & B: LATEST STORIES RAIL
             ================================================== */}
-        <section aria-labelledby="featured-broadcast-heading">
+        <section aria-labelledby="featured-story-heading">
           <div className="grid grid-cols-1 xl:grid-cols-12 gap-5 sm:gap-6 items-start">
             
-            {/* Main Featured Video (8 cols on XL) */}
+            {/* Main Featured Lead Story (8 cols on XL) */}
             <div className="xl:col-span-8 flex flex-col gap-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-[#E50914] animate-pulse" />
                   <h2 
-                    id="featured-broadcast-heading" 
+                    id="featured-story-heading" 
                     className="text-xs font-black uppercase tracking-widest text-[#E50914]"
                   >
-                    FEATURED BROADCAST
+                    FEATURED STORY
                   </h2>
                 </div>
                 {featured?.category && (
@@ -77,7 +86,7 @@ export default async function HomePage() {
                         {featured.category}
                       </span>
                       <span>•</span>
-                      <span className="font-mono text-white font-medium">{featured.duration}</span>
+                      <span className="font-mono text-white font-medium">{formatReadingTime(featured.duration)}</span>
                       <span>•</span>
                       <span>Published {formatDate(featured.published_at)}</span>
                       {featured.reporter_name && (
@@ -114,12 +123,12 @@ export default async function HomePage() {
                         href={`/video/${featured.slug}`} 
                         className="font-bold text-[#075DEB] hover:text-blue-400 flex items-center gap-1 uppercase tracking-wider text-[11px]"
                       >
-                        Watch Full Video & Discussion <ChevronRight className="w-3.5 h-3.5" />
+                        Read Full Story & Analysis <ChevronRight className="w-3.5 h-3.5" />
                       </Link>
                       {featured.views_count && (
                         <span className="text-[11px] text-[#707B8B] flex items-center gap-1 font-mono">
                           <Eye className="w-3.5 h-3.5" />
-                          {featured.views_count.toLocaleString()} views
+                          {featured.views_count.toLocaleString()} reads
                         </span>
                       )}
                     </div>
@@ -127,16 +136,16 @@ export default async function HomePage() {
                 </div>
               ) : (
                 <div className="aspect-video bg-[#121925] rounded-xl flex items-center justify-center text-[#707B8B] border border-[#252D39]">
-                  No featured video currently configured.
+                  No featured story currently configured.
                 </div>
               )}
             </div>
 
-            {/* SECTION B (Beside Featured on XL): Latest Broadcast Rail */}
+            {/* SECTION B (Beside Featured on XL): Latest Dispatches Rail */}
             <div className="xl:col-span-4 flex flex-col gap-3">
               <div className="flex items-center justify-between pb-1">
                 <div className="flex items-center gap-2">
-                  <PlaySquare className="w-4 h-4 text-[#075DEB]" />
+                  <BookOpen className="w-4 h-4 text-[#075DEB]" />
                   <h3 className="text-xs font-black uppercase tracking-widest text-[#F5F7FA]">
                     LATEST DISPATCHES
                   </h3>
@@ -145,7 +154,7 @@ export default async function HomePage() {
                   href="/video"
                   className="text-[11px] font-bold text-[#075DEB] hover:underline flex items-center gap-0.5 uppercase tracking-wider"
                 >
-                  All Videos <ChevronRight className="w-3 h-3" />
+                  All Stories <ChevronRight className="w-3 h-3" />
                 </Link>
               </div>
 
@@ -157,25 +166,6 @@ export default async function HomePage() {
                     layout="horizontal"
                   />
                 ))}
-
-                {/* Live Channel Quick Card */}
-                <div className="p-3.5 rounded-xl bg-gradient-to-br from-[#121925] to-[#0A0E15] border border-[#252D39] flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-[#E50914]/20 border border-[#E50914]/40 flex items-center justify-center text-[#E50914]">
-                      <Radio className="w-5 h-5 animate-pulse" />
-                    </div>
-                    <div>
-                      <h4 className="text-xs font-bold text-white">NEWSIGHT 24x7 Live Stream</h4>
-                      <p className="text-[10px] text-[#707B8B]">Round-the-clock verified reporting</p>
-                    </div>
-                  </div>
-                  <Link
-                    href="/live"
-                    className="px-3 py-1.5 bg-[#E50914] hover:bg-red-700 text-white text-[11px] font-bold uppercase rounded-md tracking-wider transition-colors shrink-0"
-                  >
-                    Watch Live
-                  </Link>
-                </div>
               </div>
             </div>
 
@@ -184,14 +174,14 @@ export default async function HomePage() {
 
 
         {/* ==================================================
-            SECTION B CONTINUED: LATEST VIDEOS 4-COLUMN GRID
+            SECTION B CONTINUED: LATEST STORIES 4-COLUMN GRID
             ================================================== */}
-        <section aria-labelledby="latest-videos-heading" className="pt-2">
+        <section aria-labelledby="latest-stories-heading" className="pt-2">
           <div className="flex items-center justify-between mb-4 border-b border-[#252D39] pb-2.5">
             <div className="flex items-center gap-2">
               <Flame className="w-4 h-4 text-[#E50914]" />
-              <h2 id="latest-videos-heading" className="text-sm font-black uppercase tracking-wider text-white">
-                Latest Video Reports
+              <h2 id="latest-stories-heading" className="text-sm font-black uppercase tracking-wider text-white">
+                Latest Field Reports & Stories
               </h2>
             </div>
             <Link 
@@ -218,10 +208,10 @@ export default async function HomePage() {
             <div className="flex items-center gap-2">
               <Clock className="w-4 h-4 text-emerald-400" />
               <h2 id="just-added-heading" className="text-sm font-black uppercase tracking-wider text-white">
-                Just Added
+                Recent Dispatches & Articles
               </h2>
               <span className="text-[10px] font-medium text-[#707B8B] hidden sm:inline">
-                (Chronological database publication feed)
+                (Chronological editorial publication feed)
               </span>
             </div>
             <Link 
@@ -241,21 +231,21 @@ export default async function HomePage() {
 
 
         {/* ==================================================
-            SECTION E: TOP SHOWS & NEWS PROGRAMS
+            SECTION E: TOP SERIES & COLUMNS
             ================================================== */}
         <section aria-labelledby="top-shows-heading">
           <div className="flex items-center justify-between mb-4 border-b border-[#252D39] pb-2.5">
             <div className="flex items-center gap-2">
               <Film className="w-4 h-4 text-[#075DEB]" />
               <h2 id="top-shows-heading" className="text-sm font-black uppercase tracking-wider text-white">
-                NEWSIGHT Programs & Prime Time Shows
+                NEWSIGHT Special Series & Columns
               </h2>
             </div>
             <Link 
               href="/shows" 
               className="text-xs font-bold text-[#075DEB] hover:underline flex items-center gap-1 uppercase tracking-wider"
             >
-              All Shows Directory <ChevronRight className="w-3.5 h-3.5" />
+              All Series Directory <ChevronRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
@@ -275,11 +265,11 @@ export default async function HomePage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                   <div className="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-between text-white">
                     <span className="text-[10px] font-bold uppercase tracking-wider bg-black/60 px-2 py-0.5 rounded border border-white/10">
-                      {show.host_name ? `Host: ${show.host_name}` : 'NEWSIGHT Desk'}
+                      {show.host_name ? `Author: ${show.host_name}` : 'NEWSIGHT Desk'}
                     </span>
                     {show.episode_count !== undefined && (
                       <span className="text-[10px] font-mono text-[#A4ADBB]">
-                        {show.episode_count} Episodes
+                        {show.episode_count} Stories
                       </span>
                     )}
                   </div>
@@ -298,7 +288,7 @@ export default async function HomePage() {
                   <div className="pt-2 border-t border-[#252D39]/40 flex items-center justify-between text-[11px]">
                     <span className="text-[#707B8B] font-medium">{show.schedule_info || 'Weekly'}</span>
                     <span className="font-bold text-[#075DEB] flex items-center gap-0.5 uppercase tracking-wider text-[10px]">
-                      Watch Now <ChevronRight className="w-3 h-3" />
+                      Read Series <ChevronRight className="w-3 h-3" />
                     </span>
                   </div>
                 </div>
@@ -309,14 +299,14 @@ export default async function HomePage() {
 
 
         {/* ==================================================
-            SECTION F: TOP VIDEOS (RANKED BY ACTUAL VIEWERSHIP)
+            SECTION F: TOP STORIES (RANKED BY ACTUAL READERSHIP)
             ================================================== */}
         <section aria-labelledby="top-videos-heading">
           <div className="flex items-center justify-between mb-4 border-b border-[#252D39] pb-2.5">
             <div className="flex items-center gap-2">
               <TrendingUp className="w-4 h-4 text-amber-400" />
               <h2 id="top-videos-heading" className="text-sm font-black uppercase tracking-wider text-white">
-                Top Videos & Most Watched Reports
+                Top Stories & Most Read Reports
               </h2>
             </div>
             <Link 

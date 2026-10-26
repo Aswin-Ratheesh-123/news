@@ -20,7 +20,13 @@ export default function MainHeader({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
-  const navItems = [
+  interface MainNavItem {
+    name: string;
+    href: string;
+    isLive?: boolean;
+  }
+
+  const navItems: MainNavItem[] = [
     { name: 'Home', href: '/' },
     { name: 'India', href: '/category/india' },
     { name: 'Kerala', href: '/regional/kerala' },
@@ -35,7 +41,6 @@ export default function MainHeader({
     { name: 'Opinion', href: '/opinion' },
     { name: 'Video', href: '/video' },
     { name: 'Photo Stories', href: '/photos' },
-    { name: 'Live', href: '/live', isLive: true },
   ];
 
   return (

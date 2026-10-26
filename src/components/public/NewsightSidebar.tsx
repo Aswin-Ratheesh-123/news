@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { 
-  Radio, PlaySquare, LayoutGrid, Film, Award, TrendingUp, ShieldCheck 
+  Home, PlaySquare, LayoutGrid, Film, Award, TrendingUp, ShieldCheck 
 } from 'lucide-react';
 
 interface NewsightSidebarProps {
@@ -21,21 +21,22 @@ export default function NewsightSidebar({ adSettings, activeItem }: NewsightSide
   const pathname = usePathname();
 
   const navItems = [
-    { label: 'Live TV', href: '/live', icon: Radio, isLive: true, key: 'live' },
-    { label: 'Latest Videos', href: '/video', icon: PlaySquare, key: 'videos' },
+    { label: 'Home', href: '/', icon: Home, key: 'home' },
     { label: 'Categories', href: '/categories', icon: LayoutGrid, key: 'categories' },
     { label: 'Shows', href: '/shows', icon: Film, key: 'shows' },
     { label: 'NEWSIGHT Classics', href: '/classics', icon: Award, key: 'classics' },
-    { label: 'Top Videos', href: '/top-videos', icon: TrendingUp, key: 'top-videos' },
+    { label: 'Top Stories', href: '/top-videos', icon: TrendingUp, key: 'top-videos' },
   ];
 
   const isItemActive = (href: string, key?: string) => {
     if (activeItem) {
       return activeItem === key || activeItem === href.replace('/', '');
     }
-    // Homepage and video pages default to Latest Videos active state
+    if (href === '/') {
+      return pathname === '/';
+    }
     if (href === '/video') {
-      return pathname === '/' || pathname === '/video' || pathname.startsWith('/video/');
+      return pathname === '/video' || pathname.startsWith('/video/');
     }
     if (href === '/shows') {
       return pathname === '/shows' || pathname.startsWith('/shows/');
@@ -78,12 +79,6 @@ export default function NewsightSidebar({ adSettings, activeItem }: NewsightSide
             >
               <div className="relative mb-1">
                 <Icon className={`w-5 h-5 transition-transform group-hover:scale-105 ${active ? 'text-white' : 'text-[#A4ADBB] group-hover:text-white'}`} />
-                {item.isLive && (
-                  <span className="absolute -top-1 -right-1 flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E50914] opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[#E50914]"></span>
-                  </span>
-                )}
               </div>
               <span className={`text-[10px] lg:text-[10.5px] leading-tight ${active ? 'font-bold text-white' : 'font-medium'}`}>
                 {item.label}
@@ -119,14 +114,14 @@ export default function NewsightSidebar({ adSettings, activeItem }: NewsightSide
           </div>
         )}
 
-        {/* Verified Newsroom 24/7 Desk Badge */}
-        <div className="p-2 rounded-xl bg-[#121925]/70 border border-[#252D39]/50 text-center">
+        {/* Verified Newsroom Desk Badge */}
+        <div className="p-2 rounded-xl bg-[#121925] border border-[#252D39] text-center">
           <div className="flex items-center justify-center gap-1.5 text-[9.5px] font-black uppercase text-emerald-400 tracking-wider">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span>24/7 LIVE</span>
+            <span>NEWSROOM DESK</span>
           </div>
           <p className="text-[8.5px] text-[#707B8B] mt-0.5 font-medium leading-tight">
-            Verified Newsroom
+            Verified Journalism
           </p>
         </div>
       </div>

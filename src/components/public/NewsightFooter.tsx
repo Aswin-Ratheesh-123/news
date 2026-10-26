@@ -48,7 +48,7 @@ export default function NewsightFooter({ settings }: FooterProps) {
           <div className="lg:col-span-2 space-y-4">
             <NewsightLogo size="lg" />
             <p className="text-sm text-[#A4ADBB] max-w-md leading-relaxed">
-              NEWSIGHT is an independent digital news and video journalism network. Dedicated to rigorous verification, in-depth investigative reporting, and video dispatches across science, governance, economy, and ecology.
+              NEWSIGHT is an independent digital news and photojournalism publication. Dedicated to rigorous verification, in-depth investigative reporting, and field dispatches across science, governance, economy, and ecology.
             </p>
 
             {/* Newsletter Box */}
@@ -57,7 +57,7 @@ export default function NewsightFooter({ settings }: FooterProps) {
                 NEWSIGHT Morning Briefing
               </h4>
               <p className="text-xs text-[#707B8B] mb-2.5">
-                Delivered daily at 6:30 AM IST. Key stories, video investigations, and context.
+                Delivered daily at 6:30 AM IST. Key stories, investigative reporting, and context.
               </p>
 
               {status === 'success' ? (
@@ -88,26 +88,20 @@ export default function NewsightFooter({ settings }: FooterProps) {
             </div>
           </div>
 
-          {/* Column 2: Video & Shows */}
+          {/* Column 2: Stories & Series */}
           <div>
             <h4 className="text-xs font-bold uppercase tracking-wider text-[#F5F7FA] mb-3">
-              Broadcasts & Shows
+              Special Series & Columns
             </h4>
             <ul className="space-y-2">
               <li>
-                <Link href="/live" className="hover:text-white transition-colors flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#E50914]" />
-                  <span>Live TV Broadcast</span>
-                </Link>
-              </li>
-              <li>
                 <Link href="/video" className="hover:text-white transition-colors">
-                  Latest Video Reports
+                  Latest Field Reports
                 </Link>
               </li>
               <li>
                 <Link href="/top-videos" className="hover:text-white transition-colors">
-                  Top Trending Videos
+                  Top Trending Stories
                 </Link>
               </li>
               <li>

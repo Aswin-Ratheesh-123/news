@@ -41,18 +41,11 @@ export default function AdminSidebar({ userRole, userName }: AdminSidebarProps) 
     <aside className="w-64 bg-[#0A0E15] text-[#A4ADBB] flex flex-col shrink-0 min-h-screen border-r border-[#252D39] text-xs font-sans">
       {/* Brand Header */}
       <div className="p-5 border-b border-[#252D39]">
-        <Link href="/" className="flex items-center space-x-2 group">
-          <div className="w-7 h-7 bg-[#E50914] text-white flex items-center justify-center font-black text-sm rounded">
-            N
-          </div>
-          <div>
-            <h1 className="font-bold text-sm text-white tracking-wider uppercase group-hover:text-[#E50914] transition">
-              NEWSIGHT
-            </h1>
-            <span className="text-[10px] text-[#707B8B] font-mono tracking-widest block">
-              EDITORIAL CMS
-            </span>
-          </div>
+        <Link href="/" className="flex items-center space-x-2.5 group">
+          <img src="/logo.png" alt="NEWSIGHT" className="h-7 w-auto object-contain" />
+          <span className="text-[10px] text-[#707B8B] font-mono tracking-widest block border-l border-[#252D39] pl-2 uppercase">
+            CMS
+          </span>
         </Link>
       </div>
 

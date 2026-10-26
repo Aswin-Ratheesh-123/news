@@ -729,7 +729,7 @@ Resuming at 94 for 3 on a crisp morning with cloud cover hovering over the HPCA 
 - **Points Table Trajectory:** With this victory, India’s points percentage in the current championship cycle rises to 68.5%, placing them in pole position for the Lord's final next summer.
 
 Captain and team management praised the ground staff for producing an authentic sporting pitch that offered balanced assistance to seamers on the first two mornings while demanding genuine technical application from batsmen throughout.`,
-    'https://images.unsplash.com/photo-1531415074868-036b107e775a?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1200&q=80',
     'A panoramic view of the picturesque Dharamshala cricket ground framed by the Dhauladhar mountain ranges.',
     'Signal Sports / Tarun Anand',
     'cat-10', // Sports
@@ -827,7 +827,7 @@ Captain and team management praised the ground staff for producing an authentic 
     'Monsoon Along the Malabar Coast: A Visual Chronicle of Harbours, Swollen Estuaries, and Coastal Endurance',
     'monsoon-along-the-malabar-coast-visual-chronicle',
     'Award-winning documentary photographer Arjun Divakaran documents the arrival of the south-west monsoon across fishing hamlets from Beypore to Vizhinjam.',
-    'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80',
     'Arjun Divakaran',
     new Date(Date.now() - 3600000 * 12).toISOString(),
     now
@@ -841,7 +841,7 @@ Captain and team management praised the ground staff for producing an authentic 
   insertPhotoItem.run(
     'psi-1',
     'ps-1',
-    'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80',
     'A traditional wooden vallam boat navigates churning breakers as early monsoon squalls hit the Beypore bar-mouth.',
     'Arjun Divakaran / The Daily Signal',
     1

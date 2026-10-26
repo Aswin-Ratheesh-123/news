@@ -287,7 +287,12 @@ html.light footer.bg-\[\#0A0E15\] {
 html.light .bg-\[\#0A0E15\]\/95 {
   background-color: rgba(255, 255, 255, 0.95);
 }
-html.light .bg-\[\#121925\] {
+html.light .bg-\[\#121925\],
+html.light .bg-\[\#121925\]\/70,
+html.light .bg-\[\#121925\]\/80,
+html.light .bg-\[\#121925\]\/60,
+html.light .bg-\[\#121925\]\/50,
+html.light .bg-\[\#121925\]\/40 {
   background-color: var(--surface);
   box-shadow: var(--card-shadow);
 }

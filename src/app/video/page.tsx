@@ -7,17 +7,26 @@ import {
 import PublicLayout from '@/components/public/PublicLayout';
 import VideoPlayer from '@/components/public/VideoPlayer';
 import VideoCard from '@/components/public/VideoCard';
-import { PlaySquare, Filter, Film, Sparkles, TrendingUp } from 'lucide-react';
+import { BookOpen, Filter, Film, Sparkles, TrendingUp } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Video Journalism & Documentaries | NEWSIGHT',
-  description: 'In-depth visual investigations, ground reports, explainers, and longform video documentaries.',
+  title: 'Editorial Stories & Field Dispatches | NEWSIGHT',
+  description: 'In-depth visual investigations, ground reports, explainers, and longform photojournalism stories.',
 };
 
 export const dynamic = 'force-dynamic';
 
 interface VideoHubProps {
   searchParams: Promise<{ category?: string; sort?: string }>;
+}
+
+function formatReadingTime(duration?: string) {
+  if (!duration) return '5 min read';
+  if (duration.includes(':')) {
+    const mins = parseInt(duration.split(':')[0], 10);
+    return `${Math.max(mins || 5, 2)} min read`;
+  }
+  return duration;
 }
 
 export default async function VideoHubPage({ searchParams }: VideoHubProps) {
@@ -44,14 +53,14 @@ export default async function VideoHubPage({ searchParams }: VideoHubProps) {
         {/* Masthead */}
         <div className="border-b border-[#252D39] pb-5">
           <div className="flex items-center gap-2 text-[#E50914] text-xs font-black uppercase tracking-widest mb-1.5">
-            <PlaySquare className="w-4 h-4" />
-            <span>Digital Video Journalism</span>
+            <BookOpen className="w-4 h-4" />
+            <span>Visual Field Dispatches</span>
           </div>
           <h1 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Latest Videos & Ground Reports
+            Latest Stories & Ground Reports
           </h1>
           <p className="mt-1.5 text-xs sm:text-sm text-[#A4ADBB] max-w-2xl leading-relaxed">
-            Documentaries, ground reports, and deep explainers filed by correspondents from ecological frontiers, laboratory cleanrooms, and parliamentary corridors.
+            Photojournalism dispatches, ground reports, and deep investigative stories filed by correspondents from ecological frontiers, laboratory cleanrooms, and parliamentary corridors.
           </p>
 
           {/* Category Filter Pills */}
@@ -109,23 +118,23 @@ export default async function VideoHubPage({ searchParams }: VideoHubProps) {
               </div>
 
               <div className="pt-3 border-t border-[#252D39]/50 flex items-center justify-between text-xs text-[#707B8B]">
-                <span>{featured.duration}</span>
+                <span>{formatReadingTime(featured.duration)}</span>
                 <Link
                   href={`/video/${featured.slug}`}
                   className="font-bold text-[#075DEB] hover:underline"
                 >
-                  Watch Story →
+                  Read Story →
                 </Link>
               </div>
             </div>
           </div>
         )}
 
-        {/* Video Grid */}
+        {/* Story Grid */}
         <div>
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-black uppercase tracking-wider text-white">
-              All Video Broadcasts ({videos.length})
+              All Field Dispatches ({videos.length})
             </h3>
             <div className="flex items-center gap-2 text-xs">
               <span className="text-[#707B8B]">Sort:</span>
@@ -140,7 +149,7 @@ export default async function VideoHubPage({ searchParams }: VideoHubProps) {
                 href="/video?sort=views" 
                 className={`font-semibold hover:text-white ${sort === 'views' ? 'text-[#075DEB]' : 'text-[#707B8B]'}`}
               >
-                Most Viewed
+                Most Read
               </Link>
             </div>
           </div>

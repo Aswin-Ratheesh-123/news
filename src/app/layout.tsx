@@ -16,6 +16,11 @@ export const metadata: Metadata = {
   },
   description: 'Independent digital news and video journalism platform. Live broadcasts, in-depth ground reports, documentary investigations, and verified news coverage.',
   metadataBase: new URL('https://newsight.media'),
+  icons: {
+    icon: '/logo.png',
+    shortcut: '/logo.png',
+    apple: '/logo.png',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -47,6 +52,9 @@ export default function RootLayout({
       className={`${inter.variable} antialiased dark`}
     >
       <head>
+        <link rel="icon" href="/logo.png" type="image/png" />
+        <link rel="shortcut icon" href="/logo.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/logo.png" />
         {/* Anti-FOUC Early Theme Initializer */}
         <script
           dangerouslySetInnerHTML={{

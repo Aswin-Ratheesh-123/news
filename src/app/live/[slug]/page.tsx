@@ -46,8 +46,8 @@ export default async function LiveBlogPage({ params }: LiveBlogPageProps) {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
         {/* Live Breadcrumb & Status */}
         <div className="flex items-center space-x-2 text-xs font-sans mb-4">
-          <Link href="/live" className="text-[#A4ADBB] hover:text-[#E50914] uppercase tracking-wider transition">
-            Live TV & Coverage
+          <Link href="/" className="text-[#A4ADBB] hover:text-[#E50914] uppercase tracking-wider transition">
+            Home
           </Link>
           <span className="text-[#252D39]">/</span>
           {blog.status === 'ACTIVE' ? (

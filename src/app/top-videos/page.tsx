@@ -7,8 +7,8 @@ import VideoCard from '@/components/public/VideoCard';
 import { getTopVideos, getVideos } from '@/lib/data';
 
 export const metadata: Metadata = {
-  title: 'Top Videos & Most Watched | NEWSIGHT',
-  description: 'Most-watched journalistic investigations, explainers, and prime time broadcasts on NEWSIGHT ranked by verified viewership.',
+  title: 'Top Stories & Most Read | NEWSIGHT',
+  description: 'Most-read journalistic investigations, field reports, and prime editorial stories on NEWSIGHT ranked by verified readership.',
 };
 
 export const dynamic = 'force-dynamic';
@@ -24,13 +24,13 @@ export default async function TopVideosPage() {
         <div className="border-b border-[#252D39] pb-5">
           <div className="flex items-center gap-2 text-amber-400 text-xs font-black uppercase tracking-widest mb-1.5">
             <TrendingUp className="w-4 h-4" />
-            <span>Audience Engagement & Telemetry</span>
+            <span>Audience Engagement & Readership</span>
           </div>
           <h1 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Top Videos & Verified Rankings
+            Top Stories & Verified Rankings
           </h1>
           <p className="mt-1.5 text-xs sm:text-sm text-[#A4ADBB] max-w-2xl leading-relaxed">
-            Leading video investigations and ground reports ordered strictly by authentic platform audience viewership and completed stream sessions.
+            Leading photojournalism dispatches and field reports ordered strictly by authentic platform audience readership and engagement.
           </p>
         </div>
 

@@ -18,19 +18,28 @@ interface VideoPageProps {
   params: Promise<{ slug: string }>;
 }
 
+function formatReadingTime(duration?: string) {
+  if (!duration) return '5 min read';
+  if (duration.includes(':')) {
+    const mins = parseInt(duration.split(':')[0], 10);
+    return `${Math.max(mins || 5, 2)} min read`;
+  }
+  return duration;
+}
+
 export async function generateMetadata({ params }: VideoPageProps): Promise<Metadata> {
   const { slug } = await params;
   const vid = getVideoBySlug(slug);
-  if (!vid) return { title: 'Video Not Found | NEWSIGHT' };
+  if (!vid) return { title: 'Story Not Found | NEWSIGHT' };
 
   return {
-    title: `${vid.title} | NEWSIGHT Video Journalism`,
+    title: `${vid.title} | NEWSIGHT Journalism`,
     description: vid.summary,
     openGraph: {
       title: vid.title,
       description: vid.summary,
       images: [vid.thumbnail_url],
-      type: 'video.other',
+      type: 'article',
     }
   };
 }
@@ -54,17 +63,17 @@ export default async function VideoWatchPage({ params }: VideoPageProps) {
         <div className="flex items-center gap-2 text-xs text-[#707B8B]">
           <Link href="/" className="hover:text-white transition-colors">Home</Link>
           <span>/</span>
-          <Link href="/video" className="hover:text-white transition-colors">Videos</Link>
+          <Link href="/video" className="hover:text-white transition-colors">Stories</Link>
           <span>/</span>
           <span className="text-[#A4ADBB] truncate max-w-sm">{video.title}</span>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
-          {/* Main Video & Content (8 cols) */}
+          {/* Main Content (8 cols) */}
           <div className="lg:col-span-8 space-y-6">
             
-            {/* 16:9 Video Player */}
+            {/* Visual Dispatch View */}
             <VideoPlayer
               src={video.video_url}
               poster={video.thumbnail_url}
@@ -72,7 +81,7 @@ export default async function VideoWatchPage({ params }: VideoPageProps) {
               autoPlay={false}
             />
 
-            {/* Video Headline, Tags & Metadata */}
+            {/* Headline, Tags & Metadata */}
             <div className="p-5 sm:p-6 rounded-xl bg-[#121925] border border-[#252D39] space-y-4">
               <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#252D39]/60 pb-3">
                 <div className="flex items-center gap-2">
@@ -81,7 +90,7 @@ export default async function VideoWatchPage({ params }: VideoPageProps) {
                   </span>
                   <span className="text-xs font-mono text-[#A4ADBB] flex items-center gap-1">
                     <Clock className="w-3.5 h-3.5" />
-                    {video.duration}
+                    {formatReadingTime(video.duration)}
                   </span>
                   {video.show_title && (
                     <Link
@@ -99,7 +108,7 @@ export default async function VideoWatchPage({ params }: VideoPageProps) {
                   {video.views_count && (
                     <span className="flex items-center gap-1 font-mono">
                       <Eye className="w-3.5 h-3.5" />
-                      {video.views_count.toLocaleString()} views
+                      {video.views_count.toLocaleString()} reads
                     </span>
                   )}
                 </div>
@@ -183,14 +192,14 @@ export default async function VideoWatchPage({ params }: VideoPageProps) {
 
           </div>
 
-          {/* Right Rail: Related Videos (4 cols) */}
+          {/* Right Rail: Related Stories (4 cols) */}
           <div className="lg:col-span-4 space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-[#252D39]">
               <h3 className="text-xs font-black uppercase tracking-wider text-white">
-                Related Broadcasts
+                Related Stories
               </h3>
               <Link href="/video" className="text-[11px] font-bold text-[#075DEB] hover:underline uppercase">
-                All Videos
+                All Stories
               </Link>
             </div>
 

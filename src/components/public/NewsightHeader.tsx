@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { 
-  Menu, Search, Bell, Radio, User as UserIcon, LogOut, 
+  Menu, Search, Bell, User as UserIcon, LogOut, 
   ExternalLink, X, PlaySquare, Newspaper, ArrowRight, Loader2, Sparkles, ChevronRight
 } from 'lucide-react';
 import NewsightLogo from './NewsightLogo';
@@ -237,7 +237,7 @@ export default function NewsightHeader({
                 value={searchQuery}
                 onFocus={() => setIsSearchFocused(true)}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search videos, news and stories"
+                placeholder="Search articles, reports and stories"
                 className="w-full pl-10 pr-20 py-2 sm:py-2.5 bg-[#121925] border border-[#252D39] rounded-xl text-xs sm:text-sm text-[#F5F7FA] placeholder-[#707B8B] focus:outline-none focus:border-[#075DEB] focus:ring-1 focus:ring-[#075DEB] transition-all"
               />
               <Search className="absolute left-3.5 top-3 w-4 h-4 text-[#707B8B]" />
@@ -304,7 +304,7 @@ export default function NewsightHeader({
                       <div className="p-2">
                         <div className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-[#E50914] flex items-center gap-1.5">
                           <PlaySquare className="w-3 h-3" />
-                          <span>Video Reports ({searchResults.videos.length})</span>
+                          <span>Field Dispatches ({searchResults.videos.length})</span>
                         </div>
                         {searchResults.videos.map((vid) => (
                           <Link
@@ -417,7 +417,7 @@ export default function NewsightHeader({
             })}
           </nav>
 
-          {/* 4. RIGHT: Search Toggle (mobile), Live TV (desktop), Alerts Bell, Account */}
+          {/* 4. RIGHT: Search Toggle (mobile), Theme Toggle, Alerts Bell, Account */}
           <div className="flex items-center gap-1 sm:gap-2.5 shrink-0">
             {/* Mobile Search Toggle Button */}
             <button
@@ -431,20 +431,6 @@ export default function NewsightHeader({
 
             {/* Theme Toggle Button */}
             <ThemeToggle />
-
-            {/* Live TV Button - visible on sm: screens and up; on small mobile, it is prominent in the bottom nav bar */}
-            <Link
-              href="/live"
-              className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 sm:px-3 sm:py-1.5 bg-[#121925] hover:bg-[#1B2432] border border-[#252D39] text-xs font-bold text-white uppercase rounded-lg tracking-wider transition-colors shadow-sm hover:border-[#E50914]/50"
-              title="Watch NEWSIGHT 24x7 Live Stream"
-            >
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E50914] opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#E50914]"></span>
-              </span>
-              <Radio className="w-3.5 h-3.5 text-[#E50914]" />
-              <span>LIVE TV</span>
-            </Link>
 
             {/* Editorial Notifications Popover */}
             <div className="relative" ref={notifRef}>
@@ -586,11 +572,11 @@ export default function NewsightHeader({
               ) : (
                 <Link
                   href="/admin/login"
-                  className="flex items-center gap-1.5 p-2 sm:px-3 sm:py-1.5 bg-[#121925] hover:bg-[#1B2432] border border-[#252D39] rounded-lg text-xs font-semibold text-white transition-colors"
+                  className="flex items-center gap-1.5 px-3 py-1.5 bg-[#E50914] hover:bg-red-700 text-white rounded-lg text-xs font-bold transition-all shadow-sm shadow-[#E50914]/20 shrink-0"
                   title="Newsroom Staff Sign In"
                 >
-                  <UserIcon className="w-4 h-4 text-[#A4ADBB]" />
-                  <span className="hidden sm:inline">Sign In</span>
+                  <UserIcon className="w-3.5 h-3.5 text-white" />
+                  <span className="font-bold text-white tracking-wide">Sign In</span>
                 </Link>
               )}
             </div>
@@ -615,7 +601,7 @@ export default function NewsightHeader({
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search videos, news and stories..."
+                placeholder="Search articles, reports and stories..."
                 className="w-full pl-9 pr-8 py-2.5 bg-[#121925] border border-[#252D39] rounded-xl text-xs text-[#F5F7FA] placeholder-[#707B8B] focus:outline-none focus:border-[#075DEB]"
               />
               <Search className="absolute left-3 top-3 w-4 h-4 text-[#707B8B]" />
@@ -703,7 +689,7 @@ export default function NewsightHeader({
                   <div>
                     <p className="text-[10px] font-bold uppercase tracking-wider text-[#E50914] mb-2 flex items-center gap-1.5">
                       <PlaySquare className="w-3.5 h-3.5" />
-                      <span>Video Dispatches ({searchResults.videos.length})</span>
+                      <span>Featured Dispatches ({searchResults.videos.length})</span>
                     </p>
                     <div className="space-y-2">
                       {searchResults.videos.map((vid) => (
