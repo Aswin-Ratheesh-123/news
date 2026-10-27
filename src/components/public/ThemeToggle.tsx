@@ -85,18 +85,20 @@ export default function ThemeToggle({
         onMouseLeave={() => setIsTooltipVisible(false)}
         onFocus={() => setIsTooltipVisible(true)}
         onBlur={() => setIsTooltipVisible(false)}
-        className={`relative p-2 rounded-lg text-[#A4ADBB] hover:text-[#F5F7FA] hover:bg-[#1B2432] active:scale-95 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#075DEB] border border-transparent hover:border-[#252D39]/60 group ${className}`}
+        className={`relative p-2 rounded-lg active:scale-95 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#075DEB] border border-transparent group ${
+          className || 'text-[#A4ADBB] hover:text-[#F5F7FA] hover:bg-[#1B2432] hover:border-[#252D39]/60'
+        }`}
         aria-label={ariaLabel}
         title={tooltipText}
       >
         {isDark ? (
           <Sun
-            className="w-5 h-5 text-[#A4ADBB] group-hover:text-amber-400 transition-all duration-300 transform group-hover:rotate-45 group-hover:scale-110"
+            className="w-5 h-5 text-current group-hover:text-amber-500 transition-all duration-300 transform group-hover:rotate-45 group-hover:scale-110"
             aria-hidden="true"
           />
         ) : (
           <Moon
-            className="w-5 h-5 text-[#4B5563] group-hover:text-sky-500 transition-all duration-300 transform group-hover:-rotate-12 group-hover:scale-110"
+            className="w-5 h-5 text-current group-hover:text-sky-600 transition-all duration-300 transform group-hover:-rotate-12 group-hover:scale-110"
             aria-hidden="true"
           />
         )}

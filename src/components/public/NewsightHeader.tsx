@@ -10,6 +10,7 @@ import {
 import NewsightLogo from './NewsightLogo';
 import NewsightNavDrawer from './NewsightNavDrawer';
 import ThemeToggle from './ThemeToggle';
+import { useTheme } from './ThemeProvider';
 
 interface SearchResultVideo {
   id: string;
@@ -61,6 +62,8 @@ export default function NewsightHeader({
 }: NewsightHeaderProps) {
   const router = useRouter();
   const pathname = usePathname();
+  const { theme, isMounted } = useTheme();
+  const isDark = isMounted ? theme === 'dark' : true;
 
   // Navigation & Drawer states
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -85,6 +88,50 @@ export default function NewsightHeader({
   const mobileSearchInputRef = useRef<HTMLInputElement>(null);
   const notifRef = useRef<HTMLDivElement>(null);
   const profileRef = useRef<HTMLDivElement>(null);
+
+  // Auto-hide on scroll down, reveal on scroll up
+  const [isVisible, setIsVisible] = useState(true);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = Math.max(0, window.scrollY);
+
+      // Always show at or near the very top of the page
+      if (currentScrollY <= 20) {
+        setIsVisible(true);
+        lastScrollY.current = currentScrollY;
+        return;
+      }
+
+      // Do not hide if any modal, drawer, or dropdown is currently open/focused
+      if (isDrawerOpen || isMobileSearchOpen || isNotifOpen || isProfileOpen || isSearchFocused) {
+        setIsVisible(true);
+        lastScrollY.current = currentScrollY;
+        return;
+      }
+
+      const diff = currentScrollY - lastScrollY.current;
+
+      // Small threshold to avoid micro-jitter
+      if (Math.abs(diff) < 6) {
+        return;
+      }
+
+      if (diff > 0 && currentScrollY > 80) {
+        // Scrolling down -> hide navbar (slide up)
+        setIsVisible(false);
+      } else if (diff < 0) {
+        // Scrolling up -> reveal navbar (slide down)
+        setIsVisible(true);
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isDrawerOpen, isMobileSearchOpen, isNotifOpen, isProfileOpen, isSearchFocused]);
 
   // Initialize unread alert state honestly from breaking news presence
   useEffect(() => {
@@ -208,14 +255,28 @@ export default function NewsightHeader({
 
   return (
     <>
-      <header className="sticky top-0 z-40 w-full bg-[#080B11] border-b border-[#252D39] text-[#F5F7FA]">
+      {/* Spacer to preserve document layout flow */}
+      <div className="h-14 sm:h-16 w-full shrink-0" aria-hidden="true" />
+
+      {/* Auto-hiding header with smooth slide transitions */}
+      <header className={`fixed top-0 left-0 right-0 z-40 w-full transition-all duration-300 ease-in-out shadow-xs ${
+        isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0 pointer-events-none'
+      } ${
+        isDark 
+          ? 'bg-[#080B11] border-b border-[#252D39] text-[#F5F7FA]' 
+          : 'bg-gradient-to-r from-[#74B5F0] via-[#8DC6F5] to-[#74B5F0] border-b border-[#559FE5] text-[#0F172A]'
+      }`}>
         <div className="max-w-[1920px] mx-auto px-3 sm:px-5 lg:px-6 h-14 sm:h-16 flex items-center justify-between gap-2 sm:gap-4">
           
           {/* 1. LEFT: Menu drawer toggle & NEWSIGHT Wordmark */}
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <button
               onClick={() => setIsDrawerOpen(true)}
-              className="p-1.5 sm:p-2 text-[#A4ADBB] hover:text-white hover:bg-[#1B2432] rounded-lg transition-colors"
+              className={`p-1.5 sm:p-2 rounded-lg transition-colors ${
+                isDark 
+                  ? 'text-[#A4ADBB] hover:text-white hover:bg-[#1B2432]' 
+                  : 'text-[#082042] hover:text-black hover:bg-white/30'
+              }`}
               aria-label="Open navigation drawer"
               title="Full Navigation Menu"
             >
@@ -237,10 +298,14 @@ export default function NewsightHeader({
                 value={searchQuery}
                 onFocus={() => setIsSearchFocused(true)}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search articles, reports and stories"
-                className="w-full pl-10 pr-20 py-2 sm:py-2.5 bg-[#121925] border border-[#252D39] rounded-xl text-xs sm:text-sm text-[#F5F7FA] placeholder-[#707B8B] focus:outline-none focus:border-[#075DEB] focus:ring-1 focus:ring-[#075DEB] transition-all"
+                placeholder="Search articles, reports and stories..."
+                className={`w-full pl-10 pr-20 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm transition-all shadow-xs focus:outline-none ${
+                  isDark
+                    ? 'bg-[#121925] border border-[#252D39] text-[#F5F7FA] placeholder-[#707B8B] focus:border-[#075DEB] focus:ring-1 focus:ring-[#075DEB]'
+                    : 'bg-white/95 border border-[#559FE5] text-[#0F172A] placeholder-[#64748B] focus:border-[#0284C7] focus:ring-2 focus:ring-[#0284C7]/20'
+                }`}
               />
-              <Search className="absolute left-3.5 top-3 w-4 h-4 text-[#707B8B]" />
+              <Search className={`absolute left-3.5 top-3 w-4 h-4 ${isDark ? 'text-[#707B8B]' : 'text-[#0284C7]'}`} />
 
               {/* Action buttons inside search bar: Clear & Keyboard Shortcut */}
               <div className="absolute right-2.5 top-2.5 flex items-center gap-1.5">
@@ -251,12 +316,16 @@ export default function NewsightHeader({
                       setSearchQuery('');
                       searchInputRef.current?.focus();
                     }}
-                    className="p-0.5 text-[#707B8B] hover:text-white rounded"
+                    className={`p-0.5 rounded ${isDark ? 'text-[#707B8B] hover:text-white' : 'text-[#64748B] hover:text-[#0F172A]'}`}
                   >
                     <X className="w-4 h-4" />
                   </button>
                 ) : (
-                  <kbd className="hidden lg:inline-flex items-center px-1.5 py-0.5 text-[10px] font-mono text-[#707B8B] bg-[#1B2432] border border-[#252D39] rounded">
+                  <kbd className={`hidden lg:inline-flex items-center px-1.5 py-0.5 text-[10px] font-mono rounded ${
+                    isDark
+                      ? 'text-[#707B8B] bg-[#1B2432] border border-[#252D39]'
+                      : 'text-[#0369A1] bg-[#E0F2FE] border border-[#BAE6FD]'
+                  }`}>
                     ⌘K
                   </kbd>
                 )}
@@ -396,7 +465,9 @@ export default function NewsightHeader({
 
           {/* 3. DESKTOP DESK QUICK LINKS (xl screens) */}
           <nav 
-            className="hidden xl:flex items-center gap-1 text-xs font-medium text-[#A4ADBB]"
+            className={`hidden xl:flex items-center gap-1 text-xs font-semibold ${
+              isDark ? 'text-[#A4ADBB]' : 'text-[#082042]'
+            }`}
             aria-label="Editorial Desks Navigation"
           >
             {DESK_LINKS.map((link) => {
@@ -405,10 +476,14 @@ export default function NewsightHeader({
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`px-2.5 py-1 rounded-md transition-colors ${
+                  className={`px-2.5 py-1 rounded-md transition-all ${
                     isActive 
-                      ? 'text-[#075DEB] font-bold bg-[#121925]' 
-                      : 'hover:text-white hover:bg-[#121925]'
+                      ? isDark
+                        ? 'text-[#075DEB] font-bold bg-[#121925]'
+                        : 'text-[#0284C7] font-bold bg-white shadow-xs border border-[#559FE5]' 
+                      : isDark
+                        ? 'hover:text-white hover:bg-[#121925]'
+                        : 'hover:text-black hover:bg-white/30'
                   }`}
                 >
                   {link.label}
@@ -422,7 +497,11 @@ export default function NewsightHeader({
             {/* Mobile Search Toggle Button */}
             <button
               onClick={() => setIsMobileSearchOpen(true)}
-              className="p-2 text-[#A4ADBB] hover:text-white hover:bg-[#1B2432] rounded-lg md:hidden transition-colors"
+              className={`p-2 rounded-lg md:hidden transition-colors ${
+                isDark
+                  ? 'text-[#A4ADBB] hover:text-white hover:bg-[#1B2432]'
+                  : 'text-[#082042] hover:text-black hover:bg-white/30'
+              }`}
               aria-label="Open Search"
               title="Search News & Video Archives"
             >
@@ -430,19 +509,29 @@ export default function NewsightHeader({
             </button>
 
             {/* Theme Toggle Button */}
-            <ThemeToggle />
+            <ThemeToggle className={
+              isDark
+                ? 'text-[#A4ADBB] hover:text-white hover:bg-[#1B2432]'
+                : 'text-[#082042] hover:text-black hover:bg-white/30'
+            } />
 
             {/* Editorial Notifications Popover */}
             <div className="relative" ref={notifRef}>
               <button
                 onClick={handleNotificationClick}
-                className="relative p-2 text-[#A4ADBB] hover:text-white hover:bg-[#1B2432] rounded-lg transition-colors"
+                className={`relative p-2 rounded-lg transition-colors ${
+                  isDark
+                    ? 'text-[#A4ADBB] hover:text-white hover:bg-[#1B2432]'
+                    : 'text-[#082042] hover:text-black hover:bg-white/30'
+                }`}
                 aria-label="Editorial Notifications"
                 title="Desk Dispatches & Breaking Alerts"
               >
                 <Bell className="w-5 h-5" />
                 {hasUnreadAlert && (
-                  <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-[#E50914] rounded-full ring-2 ring-[#080B11]" />
+                  <span className={`absolute top-1.5 right-1.5 w-2 h-2 bg-[#E50914] rounded-full ring-2 ${
+                    isDark ? 'ring-[#080B11]' : 'ring-[#74B5F0]'
+                  }`} />
                 )}
               </button>
 
@@ -516,15 +605,23 @@ export default function NewsightHeader({
                 <div>
                   <button
                     onClick={() => setIsProfileOpen(!isProfileOpen)}
-                    className="flex items-center gap-1.5 p-1 sm:pl-2 bg-[#121925] hover:bg-[#1B2432] border border-[#252D39] rounded-full text-xs font-medium text-white transition-colors"
+                    className={`flex items-center gap-1.5 p-1 sm:pl-2.5 rounded-full text-xs font-semibold transition-all shadow-xs hover:shadow-sm ${
+                      isDark
+                        ? 'bg-[#121925] hover:bg-[#1B2432] border border-[#252D39] text-white'
+                        : 'bg-white/95 hover:bg-white border border-[#559FE5] text-[#0F172A]'
+                    }`}
                     title={`Logged in as ${user.name}`}
                   >
                     {/* User Name: hidden on mobile, visible on desktop */}
-                    <span className="hidden sm:inline max-w-[100px] truncate text-xs font-semibold">
+                    <span className={`hidden sm:inline max-w-[100px] truncate text-xs font-semibold ${
+                      isDark ? 'text-white' : 'text-[#0F172A]'
+                    }`}>
                       {user.name}
                     </span>
                     {/* Circular Initial Avatar */}
-                    <div className="w-7 h-7 rounded-full bg-[#075DEB] flex items-center justify-center text-xs font-bold shrink-0 shadow-sm">
+                    <div className={`w-7 h-7 rounded-full text-white flex items-center justify-center text-xs font-bold shrink-0 shadow-xs ${
+                      isDark ? 'bg-[#075DEB]' : 'bg-[#0284C7]'
+                    }`}>
                       {user.name?.charAt(0) || 'U'}
                     </div>
                   </button>
@@ -572,7 +669,11 @@ export default function NewsightHeader({
               ) : (
                 <Link
                   href="/admin/login"
-                  className="flex items-center gap-1.5 px-3 py-1.5 bg-[#E50914] hover:bg-red-700 text-white rounded-lg text-xs font-bold transition-all shadow-sm shadow-[#E50914]/20 shrink-0"
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all shadow-sm shrink-0 ${
+                    isDark
+                      ? 'bg-[#E50914] hover:bg-red-700 text-white shadow-[#E50914]/20'
+                      : 'bg-[#0284C7] hover:bg-sky-700 text-white shadow-[#0284C7]/20'
+                  }`}
                   title="Newsroom Staff Sign In"
                 >
                   <UserIcon className="w-3.5 h-3.5 text-white" />

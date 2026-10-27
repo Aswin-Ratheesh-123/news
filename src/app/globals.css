@@ -395,3 +395,16 @@ iframe,
 img {
   filter: none !important;
 }
+
+/* Navbar Header Theme Styles */
+html.dark header.fixed,
+html.dark header.sticky {
+  background: #080B11 !important;
+  border-bottom-color: #252D39 !important;
+}
+
+html.light header.fixed,
+html.light header.sticky {
+  background: linear-gradient(to right, #74B5F0, #8DC6F5, #74B5F0) !important;
+  border-bottom-color: #559FE5 !important;
+}
