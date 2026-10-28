@@ -405,6 +405,6 @@ html.dark header.sticky {
 
 html.light header.fixed,
 html.light header.sticky {
-  background: linear-gradient(to right, #74B5F0, #8DC6F5, #74B5F0) !important;
-  border-bottom-color: #559FE5 !important;
+  background: #FFFFFF !important;
+  border-bottom-color: #E5E7EB !important;
 }

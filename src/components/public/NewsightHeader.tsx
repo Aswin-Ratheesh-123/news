@@ -264,7 +264,7 @@ export default function NewsightHeader({
       } ${
         isDark 
           ? 'bg-[#080B11] border-b border-[#252D39] text-[#F5F7FA]' 
-          : 'bg-gradient-to-r from-[#74B5F0] via-[#8DC6F5] to-[#74B5F0] border-b border-[#559FE5] text-[#0F172A]'
+          : 'bg-white border-b border-[#E5E7EB] text-[#171A21]'
       }`}>
         <div className="max-w-[1920px] mx-auto px-3 sm:px-5 lg:px-6 h-14 sm:h-16 flex items-center justify-between gap-2 sm:gap-4">
           
@@ -275,7 +275,7 @@ export default function NewsightHeader({
               className={`p-1.5 sm:p-2 rounded-lg transition-colors ${
                 isDark 
                   ? 'text-[#A4ADBB] hover:text-white hover:bg-[#1B2432]' 
-                  : 'text-[#082042] hover:text-black hover:bg-white/30'
+                  : 'text-[#4B5563] hover:text-[#171A21] hover:bg-[#F3F5F7]'
               }`}
               aria-label="Open navigation drawer"
               title="Full Navigation Menu"
@@ -302,10 +302,10 @@ export default function NewsightHeader({
                 className={`w-full pl-10 pr-20 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm transition-all shadow-xs focus:outline-none ${
                   isDark
                     ? 'bg-[#121925] border border-[#252D39] text-[#F5F7FA] placeholder-[#707B8B] focus:border-[#075DEB] focus:ring-1 focus:ring-[#075DEB]'
-                    : 'bg-white/95 border border-[#559FE5] text-[#0F172A] placeholder-[#64748B] focus:border-[#0284C7] focus:ring-2 focus:ring-[#0284C7]/20'
+                    : 'bg-[#F3F5F7] border border-[#E5E7EB] text-[#171A21] placeholder-[#6B7280] focus:bg-white focus:border-[#075DEB] focus:ring-2 focus:ring-[#075DEB]/20'
                 }`}
               />
-              <Search className={`absolute left-3.5 top-3 w-4 h-4 ${isDark ? 'text-[#707B8B]' : 'text-[#0284C7]'}`} />
+              <Search className={`absolute left-3.5 top-3 w-4 h-4 ${isDark ? 'text-[#707B8B]' : 'text-[#6B7280]'}`} />
 
               {/* Action buttons inside search bar: Clear & Keyboard Shortcut */}
               <div className="absolute right-2.5 top-2.5 flex items-center gap-1.5">
@@ -316,7 +316,7 @@ export default function NewsightHeader({
                       setSearchQuery('');
                       searchInputRef.current?.focus();
                     }}
-                    className={`p-0.5 rounded ${isDark ? 'text-[#707B8B] hover:text-white' : 'text-[#64748B] hover:text-[#0F172A]'}`}
+                    className={`p-0.5 rounded ${isDark ? 'text-[#707B8B] hover:text-white' : 'text-[#6B7280] hover:text-[#171A21]'}`}
                   >
                     <X className="w-4 h-4" />
                   </button>
@@ -324,7 +324,7 @@ export default function NewsightHeader({
                   <kbd className={`hidden lg:inline-flex items-center px-1.5 py-0.5 text-[10px] font-mono rounded ${
                     isDark
                       ? 'text-[#707B8B] bg-[#1B2432] border border-[#252D39]'
-                      : 'text-[#0369A1] bg-[#E0F2FE] border border-[#BAE6FD]'
+                      : 'text-[#6B7280] bg-white border border-[#E5E7EB]'
                   }`}>
                     ⌘K
                   </kbd>
@@ -466,7 +466,7 @@ export default function NewsightHeader({
           {/* 3. DESKTOP DESK QUICK LINKS (xl screens) */}
           <nav 
             className={`hidden xl:flex items-center gap-1 text-xs font-semibold ${
-              isDark ? 'text-[#A4ADBB]' : 'text-[#082042]'
+              isDark ? 'text-[#A4ADBB]' : 'text-[#4B5563]'
             }`}
             aria-label="Editorial Desks Navigation"
           >
@@ -480,10 +480,10 @@ export default function NewsightHeader({
                     isActive 
                       ? isDark
                         ? 'text-[#075DEB] font-bold bg-[#121925]'
-                        : 'text-[#0284C7] font-bold bg-white shadow-xs border border-[#559FE5]' 
+                        : 'text-[#075DEB] font-bold bg-[#E8F0FF]' 
                       : isDark
                         ? 'hover:text-white hover:bg-[#121925]'
-                        : 'hover:text-black hover:bg-white/30'
+                        : 'hover:text-[#171A21] hover:bg-[#F3F5F7]'
                   }`}
                 >
                   {link.label}
@@ -500,7 +500,7 @@ export default function NewsightHeader({
               className={`p-2 rounded-lg md:hidden transition-colors ${
                 isDark
                   ? 'text-[#A4ADBB] hover:text-white hover:bg-[#1B2432]'
-                  : 'text-[#082042] hover:text-black hover:bg-white/30'
+                  : 'text-[#4B5563] hover:text-[#171A21] hover:bg-[#F3F5F7]'
               }`}
               aria-label="Open Search"
               title="Search News & Video Archives"
@@ -512,7 +512,7 @@ export default function NewsightHeader({
             <ThemeToggle className={
               isDark
                 ? 'text-[#A4ADBB] hover:text-white hover:bg-[#1B2432]'
-                : 'text-[#082042] hover:text-black hover:bg-white/30'
+                : 'text-[#4B5563] hover:text-[#171A21] hover:bg-[#F3F5F7]'
             } />
 
             {/* Editorial Notifications Popover */}
@@ -522,7 +522,7 @@ export default function NewsightHeader({
                 className={`relative p-2 rounded-lg transition-colors ${
                   isDark
                     ? 'text-[#A4ADBB] hover:text-white hover:bg-[#1B2432]'
-                    : 'text-[#082042] hover:text-black hover:bg-white/30'
+                    : 'text-[#4B5563] hover:text-[#171A21] hover:bg-[#F3F5F7]'
                 }`}
                 aria-label="Editorial Notifications"
                 title="Desk Dispatches & Breaking Alerts"
@@ -530,7 +530,7 @@ export default function NewsightHeader({
                 <Bell className="w-5 h-5" />
                 {hasUnreadAlert && (
                   <span className={`absolute top-1.5 right-1.5 w-2 h-2 bg-[#E50914] rounded-full ring-2 ${
-                    isDark ? 'ring-[#080B11]' : 'ring-[#74B5F0]'
+                    isDark ? 'ring-[#080B11]' : 'ring-white'
                   }`} />
                 )}
               </button>
@@ -608,20 +608,18 @@ export default function NewsightHeader({
                     className={`flex items-center gap-1.5 p-1 sm:pl-2.5 rounded-full text-xs font-semibold transition-all shadow-xs hover:shadow-sm ${
                       isDark
                         ? 'bg-[#121925] hover:bg-[#1B2432] border border-[#252D39] text-white'
-                        : 'bg-white/95 hover:bg-white border border-[#559FE5] text-[#0F172A]'
+                        : 'bg-[#F3F5F7] hover:bg-zinc-200 border border-[#E5E7EB] text-[#171A21]'
                     }`}
                     title={`Logged in as ${user.name}`}
                   >
                     {/* User Name: hidden on mobile, visible on desktop */}
                     <span className={`hidden sm:inline max-w-[100px] truncate text-xs font-semibold ${
-                      isDark ? 'text-white' : 'text-[#0F172A]'
+                      isDark ? 'text-white' : 'text-[#171A21]'
                     }`}>
                       {user.name}
                     </span>
                     {/* Circular Initial Avatar */}
-                    <div className={`w-7 h-7 rounded-full text-white flex items-center justify-center text-xs font-bold shrink-0 shadow-xs ${
-                      isDark ? 'bg-[#075DEB]' : 'bg-[#0284C7]'
-                    }`}>
+                    <div className="w-7 h-7 rounded-full text-white bg-[#075DEB] flex items-center justify-center text-xs font-bold shrink-0 shadow-xs">
                       {user.name?.charAt(0) || 'U'}
                     </div>
                   </button>
@@ -669,11 +667,7 @@ export default function NewsightHeader({
               ) : (
                 <Link
                   href="/admin/login"
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all shadow-sm shrink-0 ${
-                    isDark
-                      ? 'bg-[#E50914] hover:bg-red-700 text-white shadow-[#E50914]/20'
-                      : 'bg-[#0284C7] hover:bg-sky-700 text-white shadow-[#0284C7]/20'
-                  }`}
+                  className="flex items-center gap-1.5 px-3 py-1.5 bg-[#E50914] hover:bg-red-700 text-white rounded-lg text-xs font-bold transition-all shadow-sm shadow-[#E50914]/20 shrink-0"
                   title="Newsroom Staff Sign In"
                 >
                   <UserIcon className="w-3.5 h-3.5 text-white" />
