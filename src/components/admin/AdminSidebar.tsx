@@ -42,7 +42,7 @@ export default function AdminSidebar({ userRole, userName }: AdminSidebarProps) 
       {/* Brand Header */}
       <div className="p-5 border-b border-[#252D39]">
         <Link href="/" className="flex items-center space-x-2.5 group">
-          <img src="/logo.png" alt="NEWSIGHT" className="h-7 w-auto object-contain" />
+          <img src="/logo3.png" alt="NEWSIGHT" className="h-7 w-auto object-contain" />
           <span className="text-[10px] text-[#707B8B] font-mono tracking-widest block border-l border-[#252D39] pl-2 uppercase">
             CMS
           </span>

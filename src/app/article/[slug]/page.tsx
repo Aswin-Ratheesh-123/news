@@ -73,7 +73,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       name: 'NEWSIGHT',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://newsight.media/logo.png',
+        url: 'https://newsight.media/logo3.png',
       },
     },
   };
